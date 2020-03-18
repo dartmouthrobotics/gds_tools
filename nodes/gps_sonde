@@ -18,7 +18,7 @@ def append_file(data_array):
         writer.writerow(data_array)
 
 
-def gps_sonde_callback(sonde_msg, gps_msg, depth_msg):s
+def gps_sonde_callback(sonde_msg, gps_msg, depth_msg):
     data_array = [gps_msg.header.stamp.to_sec(), gps_msg.latitude, gps_msg.longitude,
                 depth_msg.header.stamp.to_sec(), depth_msg.altitude,
                 sonde_msg.header.stamp.to_sec()]
