@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+"""ROS node to listen to robot global position and EXO sonde measurements and write to ."""
+
+import csv
+import rospy
+import rospkg
+import message_filters
+
+from ysi_exo.msg import Sonde
+from sensor_msgs.msg import NavSatFix
+from mavros_msgs.msg import VFR_HUD
+
+CSV_FILE_PATH = ""       
+
+def append_file(data_array):
+    with open(CSV_FILE_PATH, 'a') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(data_array)
+
+
+def gps_sonde_callback(sonde_msg, gps_msg, depth_msg):s
+    data_array = [gps_msg.header.stamp.to_sec(), gps_msg.latitude, gps_msg.longitude,
+                depth_msg.header.stamp.to_sec(), depth_msg.altitude,
+                sonde_msg.header.stamp.to_sec()]
+    data_array.append(sonde_msg.data)
+    append_file(data_array)
+
+
+def gps_sonde_node():
+    """ROS node to listen to robot global position and EXO sonde measurements and write to csv file."""
+    global CSV_FILE_PATH
+
+    # ROS nitialization and parameters.
+    rospy.init_node('gps_sonde_csv_writer', anonymous=False)
+    rospy.sleep(1)
+
+    CSV_FILE_PATH = rospy.get_param('~csv_file_path') 
+
+    # Initialization of subscribers.
+    sonde_sub = message_filters.Subscriber('sonde', Sonde)
+    gps_sub = message_filters.Subscriber('mavros/global_position/global', NavSatFix)
+    depth_sub = message_filters.Subscriber('mavros/vfr_hud', VFR_HUD)
+
+    ts = message_filters.ApproximateTimeSynchronizer([sonde_sub, gps_sub, depth_sub], 100, 0.5)
+    ts.registerCallback(gps_sonde_callback)
+
+    rospy.spin()
+
+
+if __name__ == '__main__':
+    try:
+        gps_sonde_node()
+    except rospy.ROSInterruptException:
+        pass

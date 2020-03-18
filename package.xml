@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>gds_tools</name>
+  <version>0.0.1</version>
+  <description>Tool package for collecting and plotting GPS, depth sensor, and sonde measurements.</description>
+
+  <maintainer email="monika.roznere.gr@dartmouth.edu">Monika Roznere</maintainer>
+
+  <license>MIT</license>
+
+  <author email="monika.roznere.gr@dartmouth.edu">Monika Roznere</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+</package>
