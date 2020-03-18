@@ -10,7 +10,7 @@ from ysi_exo.msg import Sonde
 from sensor_msgs.msg import NavSatFix
 from mavros_msgs.msg import VFR_HUD
 
-CSV_FILE_PATH = ""       
+CSV_FILE_PATH = ""
 
 def append_file(data_array):
     with open(CSV_FILE_PATH, 'a') as csv_file:
@@ -22,7 +22,7 @@ def gps_sonde_callback(sonde_msg, gps_msg, depth_msg):s
     data_array = [gps_msg.header.stamp.to_sec(), gps_msg.latitude, gps_msg.longitude,
                 depth_msg.header.stamp.to_sec(), depth_msg.altitude,
                 sonde_msg.header.stamp.to_sec()]
-    data_array.append(sonde_msg.data)
+    data_array.extend(sonde_msg.data)
     append_file(data_array)
 
 
@@ -34,7 +34,8 @@ def gps_sonde_node():
     rospy.init_node('gps_sonde_csv_writer', anonymous=False)
     rospy.sleep(1)
 
-    CSV_FILE_PATH = rospy.get_param('~csv_file_path') 
+    rospack = rospkg.RosPack()
+    CSV_FILE_PATH = rospack.get_path('graph_optimization') + "/sample_data/" + rospy.get_param('~csv_file_name')
 
     # Initialization of subscribers.
     sonde_sub = message_filters.Subscriber('sonde', Sonde)

@@ -7,6 +7,7 @@ project(gds_tools)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
+  mavros_msgs
   ysi_exo
 )
 
@@ -18,9 +19,11 @@ catkin_python_setup()
 
 
 catkin_package(
-  CATKIN_DEPENDS 
-    rospy 
+  CATKIN_DEPENDS
+    rospy
     std_msgs
+    mavros_msgs
+    ysi_exo
 )
 
 include_directories(
