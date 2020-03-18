@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""ROS node to listen to robot global position and EXO sonde measurements and write to ."""
+"""ROS node to listen to robot global position, depth, and EXO sonde measurements and write to csv file."""
 
 import csv
 import rospy
@@ -27,7 +27,7 @@ def gps_sonde_callback(sonde_msg, gps_msg, depth_msg):
 
 
 def gps_sonde_node():
-    """ROS node to listen to robot global position and EXO sonde measurements and write to csv file."""
+    """ROS node to listen to robot global position, depth, and EXO sonde measurements and write to csv file."""
     global CSV_FILE_PATH
 
     # ROS nitialization and parameters.
