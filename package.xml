@@ -15,11 +15,13 @@
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>mavros_msgs</build_depend>
+  <build_depend>ping_nodelet</build_depend>
   <build_depend>ysi_exo</build_depend>
 
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>mavros_msgs</run_depend>
+  <run_depend>ping_nodelet</run_depend>
   <run_depend>ysi_exo</run_depend>
 
 </package>

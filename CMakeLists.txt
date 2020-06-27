@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   mavros_msgs
   ysi_exo
+  ping_nodelet
 )
 
 ## This macro, using the setup.py ensures
@@ -24,6 +25,7 @@ catkin_package(
     std_msgs
     mavros_msgs
     ysi_exo
+    ping_nodelet
 )
 
 include_directories(
